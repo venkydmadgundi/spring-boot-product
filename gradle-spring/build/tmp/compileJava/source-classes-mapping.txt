@@ -2,10 +2,3 @@ com/example/simple/web/repository/ProductRepository.java
  com.example.simple.web.repository.ProductRepository
 com/example/simple/web/model/Product.java
  com.example.simple.web.model.Product
-com/example/simple/web/controller/ProductController.java
- com.example.simple.web.controller.ProductController
-com/example/simple/web/Application.java
- com.example.simple.web.Application
-com/example/simple/web/repository/ProductRepositoryImpl.java
- com.example.simple.web.repository.ProductRepositoryImpl
- com.example.simple.web.repository.ProductRepositoryImpl$ProductRowMapper

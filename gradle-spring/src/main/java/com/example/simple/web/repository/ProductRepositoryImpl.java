@@ -15,11 +15,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	//spearate SQL
 
 	class ProductRowMapper implements RowMapper < Product > {
         @Override
@@ -35,32 +41,32 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
 	@Override
-	public List<Product> findAll() {
+	public Page<Product> findAll(Pageable pageable) {
 		return jdbcTemplate.query("SELECT * FROM products", new ProductRowMapper());
 	}
 
-	@Override
-	public Product findById(int id) {
-		return jdbcTemplate.queryForObject("SELECT * FROM products WHERE id = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(Product.class));
-	}
+	// @Override
+	// public Product findById(int id) {
+	// 	return jdbcTemplate.queryForObject("SELECT * FROM products WHERE id = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(Product.class));
+	// }
 
-	@Override
-	public void save(Product product) {
-		String sqlQuery = "INSERT products(name, description, price, stock) " + "VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(sqlQuery, product.getName(), product.getDescription(), product.getPrice(),
-				product.getStock());
-	}
+	// @Override
+	// public void save(Product product) {
+	// 	String sqlQuery = "INSERT products(name, description, price, stock) " + "VALUES (?, ?, ?, ?)";
+	// 	jdbcTemplate.update(sqlQuery, product.getName(), product.getDescription(), product.getPrice(),
+	// 			product.getStock());
+	// }
 
-	@Override
-	public void update(Product product,int id) {
-		String sqlQuery = "UPDATE products SET name = ?, description = ?, price = ?, stock = ? " + "WHERE id = ?";
-		jdbcTemplate.update(sqlQuery, product.getName(), product.getDescription(), product.getPrice(),
-				product.getStock(), id);		
-	}
+	// @Override
+	// public void update(Product product,int id) {
+	// 	String sqlQuery = "UPDATE products SET name = ?, description = ?, price = ?, stock = ? " + "WHERE id = ?";
+	// 	jdbcTemplate.update(sqlQuery, product.getName(), product.getDescription(), product.getPrice(),
+	// 			product.getStock(), id);		
+	// }
 
-	@Override
-	public boolean delete(int id) {
-		return jdbcTemplate.update("DELETE FROM products WHERE id = ?", new Object[] { id }) > 0;
-	}
+	// @Override
+	// public boolean delete(int id) {
+	// 	return jdbcTemplate.update("DELETE FROM products WHERE id = ?", new Object[] { id }) > 0;
+	// }
 
 }
