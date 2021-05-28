@@ -4,25 +4,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import com.example.simple.web.model.Product;
 
-public interface ProductRepository extends PagingAndSortingRepository<Product, String> {
+public interface ProductRepository {
 
-    Page<Product> findAll(Pageable pageable);
+    List<Product> findAll(int page, int size);
 
-    // Product findById(int id);
+    Product findById(int id);
 
-    // void save(Product product);
+    void save(Product product);
 
-    // void update(Product product,int id);
+    void update(Product product,int id);
 
-    // boolean delete(int id);
+    boolean delete(int id);
 
     
 
