@@ -21,6 +21,8 @@ public interface ProductRepository {
 
     boolean delete(int id);
 
-    
+    int totalCount();
+
+    int numberPage(int size);
 
 }

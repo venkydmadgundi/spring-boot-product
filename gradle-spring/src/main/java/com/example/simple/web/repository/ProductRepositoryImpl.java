@@ -37,16 +37,19 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
     }
 
+    public int totalCount(){
+    	return jdbcTemplate.queryForObject(queryProductTotalCounts, Integer.class);
+    }
+
+    public int numberPage(int size){
+    	int numberPage = (totalCount()/size);
+    	return numberPage;
+    }
+
 	@Override
 	public List<Product> findAll(int page, int size) {
-		//Create oject for get list
-		List<Product> finalProducts = new ArrayList<>();
-		int productTotalCount = jdbcTemplate.queryForObject(queryProductTotalCounts, Integer.class);
-		int productTotalPages = (productTotalCount/size)-1;
 		String queryProductLimitOffset = "SELECT * FROM products LIMIT " + size + " OFFSET "+ page*size;
-		
 		return jdbcTemplate.query(queryProductLimitOffset, new ProductRowMapper());
-
 	}
 
 	@Override

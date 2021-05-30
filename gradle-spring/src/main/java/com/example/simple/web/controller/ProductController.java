@@ -24,6 +24,8 @@ import java.util.Optional;
 
 import com.example.simple.web.model.Product;
 import com.example.simple.web.repository.ProductRepository;
+import com.example.simple.web.model.ProductResponse;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -43,12 +45,15 @@ public class ProductController {
 
     @GetMapping("products/")
     @ResponseBody
-    public List<Product> listAll(@RequestParam(value= "page", defaultValue = "0") Integer page, @RequestParam(value= "size", defaultValue = "10") Integer size) {
+    public ProductResponse listAll(@RequestParam(value= "page", defaultValue = "0") Integer page, @RequestParam(value= "size", defaultValue = "10") Integer size) {
 
-            System.out.println( page);
-            System.out.println( size);
+            // System.out.println( page);
+            // System.out.println( size);
+        List<Product> productList = productRepository.findAll(page, size);
+        int totalCount = productRepository.totalCount();
+        int numberPage = productRepository.numberPage(size);
         
-        return productRepository.findAll(page, size);
+        return new ProductResponse(totalCount, numberPage, productList);
     }
 
     @GetMapping("products/{id}")
